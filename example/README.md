@@ -17,19 +17,19 @@ Look in the `Makefile` to see how the commands can be used to prepare the templa
 
 These steps will show you how the whole thing hangs together.
 
-Install and then explore the `jade-apm` package:
+Install and then explore the `jade-amd` package:
 
-    npm install jade-apm
-    npm explore jade-apm
+    npm install jade-amd
+    npm explore jade-amd
 
-You should now be in the `jade-apm` directory. Make sure all the deps are installed and then go to the examples directory:
+You should now be in the `jade-amd` directory. Make sure all the deps are installed and then go to the examples directory:
  
-    jade-apm $ npm install .
-    jade-apm $ cd example
+    jade-amd $ npm install .
+    jade-amd $ cd example
 
 Start the server in development mode:
 
-    jade-apm $ node app.js
+    jade-amd $ node app.js
 
 Now with a browser like Chrome go to http://localhost:3000/ to connect to the app. The page will show you lots of example content. Use the developer mode to look at the assets being requested, or look at the output of the server script.
 
