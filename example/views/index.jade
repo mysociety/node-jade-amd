@@ -1,0 +1,22 @@
+extend layout
+
+block content
+  h1 Sample app
+  
+  p This is an example app that demonstrates the wrapping that occurs
+  
+  
+  h2 Sample Jade
+  pre #{ sampleJade }
+  
+  h2 Jade as HTML
+  pre #{ sampleHTML }
+      
+  h2 Compiled Jade client function
+  pre #{ sampleFunction }
+  
+  h2 AMD wrapped compiled Jade client function
+  pre #{ sampleAMD }
+
+  h2 AMD wrapped Jade runtime
+  pre #{ jadeRuntimeAmdString }

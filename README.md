@@ -15,3 +15,8 @@ But without:
   * mandating naming or directory layouts
   * feature creeping :)
 
+## Inspiration
+
+ * https://github.com/visionmedia/jade/issues/634
+ * https://github.com/pgherveou/squid/blob/master/src/lib/JadeBuilder.coffee
+
