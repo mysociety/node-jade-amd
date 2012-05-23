@@ -14,7 +14,7 @@
     "Edmund von der Burg <evdb@mysociety.org> (http://www.mysociety.org/)"
   ],
   
-  "main": "node-apm",  
+  "main": "jade-amd",  
   "bin": { "jade-amd": "./bin/jade-amd" },
   
   "repository": {
