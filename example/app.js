@@ -20,9 +20,12 @@ app.configure(function(){
   // disk. The first argument is where this middleware is mounted - and should
   // match the path to the template files used from the browser.
   // By default it looks in the app.set('views') directory for the templates.
-  app.use( '/js/templates/', jadeAmdMiddleware({}) );
+  // app.use( '/js/templates/', jadeAmdMiddleware({}) );
 
-  app.use(express.static(__dirname + '/public'));
+  // app.use(express.static(__dirname + '/public'));
+  app.use(express.static(__dirname + '/public-minified'));
+
+
   app.use(express.favicon());
 
   app.use(app.router);

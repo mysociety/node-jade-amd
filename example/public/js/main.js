@@ -1,12 +1,6 @@
-require(
-  {    
-
-    baseUrl: '/js',
-    
-    paths: {
-    }
-  }
-);
+require({
+  baseUrl: '/js',
+});
 
 
 require([

@@ -1,0 +1,6 @@
+/**
+ * @license RequireJS domReady 1.0.0 Copyright (c) 2010-2011, The Dojo Foundation All Rights Reserved.
+ * Available via the MIT or new BSD license.
+ * see: http://github.com/jrburke/requirejs for details
+ */
+define([],function(){function i(a){for(var b=0,d;d=a[b];b++)d(c)}function j(){var a=d,c=e;b&&(a.length&&(d=[],i(a)),f.resourcesDone&&c.length&&(e=[],i(c)))}function k(){b||(b=!0,h&&clearInterval(h),j())}function l(a){return b?a(c):d.push(a),l}var a=typeof window!="undefined"&&window.document,b=!a,c=a?document:null,d=[],e=[],f=requirejs||require||{},g=f.resourcesReady,h;return"resourcesReady"in f&&(f.resourcesReady=function(a){g&&g(a),a&&j()}),a&&(document.addEventListener?(document.addEventListener("DOMContentLoaded",k,!1),window.addEventListener("load",k,!1)):window.attachEvent&&(window.attachEvent("onload",k),self===self.top&&(h=setInterval(function(){try{document.body&&(document.documentElement.doScroll("left"),k())}catch(a){}},30))),document.readyState==="complete"&&k()),l.withResources=function(a){return b&&f.resourcesDone?a(c):e.push(a),l},l.version="1.0.0",l.load=function(a,b,c,d){d.isBuild?c(null):l(c)},l})

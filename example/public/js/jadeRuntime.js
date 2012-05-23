@@ -87,10 +87,10 @@ exports.attrs = function attrs(obj, escaped){
 
 exports.escape = function escape(html){
   return String(html)
-    .replace(/&(?!\w+;)/g, '&')
-    .replace(/</g, '<')
-    .replace(/>/g, '>')
-    .replace(/"/g, '"');
+    .replace(/&(?!\w+;)/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
 };
 
 /**

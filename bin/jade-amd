@@ -1,0 +1,91 @@
+#!/usr/bin/env node
+
+/**
+ * Module dependencies.
+ */
+
+var fs      = require('fs'),
+    program = require('commander'),
+    jade    = require('jade'),
+    jadeAmd = require('../'),
+    program = require('commander'),
+    path = require('path'),
+    mkdirp = require('mkdirp');
+
+program
+  .version(jadeAmd.version)
+  .usage('[options] [dir|file ...]')
+  .option("-R, --runtime", "output the jade AMD'd runtime.js to stdout and exit")
+  .option('-O, --out <dir>', 'output the compiled js to <dir>')
+  .option('-P, --pretty',    'compile pretty html output');
+
+program.parse(process.argv);
+
+
+// If we just want the runtime output it and then exit
+if (program.runtime) {
+  process.stdout.write( jadeAmd.jadeRuntimeAmdString );
+  process.exit();
+}
+
+
+// jade options
+var options = {
+  client:       true,
+  compileDebug: false,
+  pretty:       program.pretty,
+};
+
+
+// left-over args are file paths
+var files = program.args;
+
+// compile files
+if (files.length) {
+  console.log();
+  files.forEach(renderFile);
+  process.on('exit', console.log);
+} else {
+  console.log('Need to provide files or dir to convert')
+}
+
+
+/**
+ * Process the given path, compiling the jade files found.
+ * Always walk the subdirectories.
+ */
+
+function renderFile(filePath) {
+  var re = /\.jade$/;
+  fs.lstat(filePath, function(err, stat) {
+    if (err) throw err;
+
+    // Found jade file
+    if (stat.isFile() && re.test(filePath)) {
+      fs.readFile(filePath, 'utf8', function(err, str){
+        if (err) throw err;
+        options.filename = filePath;
+        var fn = jade.compile(str, options);
+        filePath = filePath.replace(re, '.js');
+        if (program.out) filePath = path.join(program.out, path.basename(filePath));
+        var dir = path.resolve(path.dirname(filePath));
+        mkdirp(dir, 0755, function(err){
+          if (err) throw err;
+          var amdOutput = jadeAmd.toAmdString(fn);
+          fs.writeFile(filePath, amdOutput, function(err){
+            if (err) throw err;
+            console.log('  \033[90mjade -> AMD js: \033[36m%s\033[0m', filePath);
+          });
+        });
+      });
+    // Found directory
+    } else if (stat.isDirectory()) {
+      fs.readdir(filePath, function(err, files) {
+        if (err) throw err;
+        files.map(function(filename) {
+          return filePath + '/' + filename;
+        }).forEach(renderFile);
+      });
+    }
+  });
+}
