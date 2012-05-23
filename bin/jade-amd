@@ -1,5 +1,9 @@
 #!/usr/bin/env node
 
+
+// This pretty much a copy of the `jade` script
+
+
 /**
  * Module dependencies.
  */

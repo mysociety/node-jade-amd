@@ -2,7 +2,7 @@
   "name": "jade-amd",
   "version": "0.0.1",
   
-  "bin": { "jade": "./bin/jade-amd" },
+  "bin": { "jade-amd": "./bin/jade-amd" },
   
   "dependencies": {
     "commander":   ">= 0.6.0",
