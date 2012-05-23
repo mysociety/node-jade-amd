@@ -20,7 +20,6 @@ app.configure(function(){
   // In this example we'll use a boolean variable to decide what mode to run in. 
   // In a proper app you'd probably decide this in a more felxible way - in a 
   // `config` file for example.
-  console.log( app.settings.env );
   var inDev = app.settings.env == 'development';
 
   // Trap all the requests for compiled templates and serve them from the jade 
