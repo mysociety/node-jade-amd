@@ -1,19 +1,51 @@
 # Jade to AMD convert utils
 
-This module lets you use Jade, and compiled Jade templates, in an AMD context.
+This module lets you use Jade easily on the browser in an AMD environment - like RequireJS.
 
-It aims to provide:
+It provides:
 
-  * method to return an AMD wrapped jade runtime.js
-  * method to compile Jade templates to AMD wrapped functions
+  * a method to return an AMD wrapped jade runtime.js
+  * a method to compile Jade templates to AMD wrapped functions
   * connect middleware to serve the complied templates for development
-  * build tool to puts files in the right place for something like RequireJS to bundle
+  * example of a build that puts files in the right place for something like RequireJS to bundle
+  * Jade version agnostic - it uses the Jade that you've npm installed.
 
-But without:
 
-  * embedding Jade - should use the version you have chosen to use
-  * mandating naming or directory layouts
-  * feature creeping :)
+
+## Connect middleware
+
+The middleware is there for when you are developing. It intercepts requests for template js and compiles and serves the templates directly. This means that you don't need to make any changes to the browser-side code.
+
+    var jadeAmd = require('jade-amd');
+    app.use( '/js/templates/', jadeAmd.jadeAmdMiddleware({}) );
+
+
+## Jade Runtime
+
+Jade ships with a `runtime.js` that lets you run precompiled templates on the client with out requiring the whole of the jade templating system. This script needs to be wrapped to work with AMD loaders such as RequireJS:
+
+    # wrap jade's runtime.js in AMD semantics
+    node-apm --runtime > public/js/jadeRuntime.js
+
+
+## Compile and wrap the templates
+
+Goes through all the `.jade` files and compiles them to JavaScript, and then wraps them for AMD loaders. See the `README.md` and `Makefile` in the `example` folder for more details on how to integrate into your project.
+
+    # compile and wrap you templates
+    node-apm --out public/js/templates views/
+
+
+## Using the jade templates on the browser.
+
+Assuming that you have used RequireJS your browser JavaScript will now look something like this:
+
+    require([ 'templates/person' ], function(personTemplate) {
+      var rendered_content = personTemplate({ name: 'Joe Bloggs' });
+    });
+
+And you can use exactly the same template on the server side!
+
 
 ## Inspiration
 

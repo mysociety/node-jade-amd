@@ -3,7 +3,7 @@
   "version": "0.0.1",
   
   "description": "Helpers for working with Jade templates in an AMD setting",
-  "keywords": ["jade", "amd", "requirejs", "express", "middleware", "connect"],
+  "keywords": ["jade", "amd", "requirejs", "express", "middleware", "connect", "client-side"],
 
   "homepage": "https://github.com/mysociety/node-jade-amd",
   "bugs": {
