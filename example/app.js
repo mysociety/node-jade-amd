@@ -1,5 +1,6 @@
 var express    = require('express'),
     jade       = require('jade'),
+    fs         = require('fs'),
     toAmdString           = require('../lib/jade-amd').toAmdString,
     jadeRuntimeAmdString  = require('../lib/jade-amd').jadeRuntimeAmdString;
 
@@ -23,19 +24,25 @@ app.configure(function(){
 });
 
 app.get('/', function (req,res) {
-  var sampleJade = "h1 Hello #{locals.name || 'World'}!";
-  var sampleFunction = jade.compile(sampleJade, {client: true, compileDebug: false})  
+  
+  fs.readFile(
+    __dirname + '/views/sample.jade',
+    function(err, sampleJade) {
+      if (err) throw err;
 
-  res.locals({
-    sampleJade          : sampleJade,
-    sampleHTML          : jade.compile(sampleJade)({}),
-    sampleFunction      : sampleFunction.toString(),
-    sampleAMD           : toAmdString(sampleFunction),
-    jadeRuntimeAmdString: jadeRuntimeAmdString,
-  });
+      var sampleFunction = jade.compile(sampleJade, {client: true, compileDebug: false })  
 
+      res.locals({
+        sampleJade          : sampleJade,
+        sampleHTML          : jade.compile(sampleJade)({}),
+        sampleFunction      : sampleFunction.toString(),
+        sampleAMD           : toAmdString(sampleFunction),
+        jadeRuntimeAmdString: jadeRuntimeAmdString,
+      });
 
-  res.render('index');
+      res.render('index');
+    }
+  );
 });
 
 app.listen(3000);

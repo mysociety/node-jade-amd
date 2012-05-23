@@ -4,7 +4,7 @@ var attrs = jade.attrs, escape = jade.escape, rethrow = jade.rethrow;
 var buf = [];
 with (locals || {}) {
 var interp;
-buf.push('<h1>Hello ' + escape((interp = locals.name || 'World') == null ? '' : interp) + '!</h1>');
+buf.push('<p> \nHello <b>' + escape((interp = locals.name || 'World') == null ? '' : interp) + '</b>!</p>');
 }
 return buf.join("");
 };
