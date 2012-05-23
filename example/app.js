@@ -2,7 +2,8 @@ var express    = require('express'),
     jade       = require('jade'),
     fs         = require('fs'),
     toAmdString           = require('../lib/jade-amd').toAmdString,
-    jadeRuntimeAmdString  = require('../lib/jade-amd').jadeRuntimeAmdString;
+    jadeRuntimeAmdString  = require('../lib/jade-amd').jadeRuntimeAmdString,
+    jadeAmdMiddleware     =  require('../lib/jade-amd').jadeAmdMiddleware;
 
 var app = module.exports = express.createServer();
 
@@ -14,6 +15,8 @@ app.configure(function(){
   app.set('view options', { layout: false, pretty: true, });
   app.use(express.bodyParser());
   app.use(express.methodOverride());
+
+  app.use( '/js/templates/', jadeAmdMiddleware({}) );
 
   app.use(express.static(__dirname + '/public'));
   app.use(express.favicon());
