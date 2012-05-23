@@ -16,6 +16,10 @@ app.configure(function(){
   app.use(express.bodyParser());
   app.use(express.methodOverride());
 
+  // trap all the requests for compiled templates and serve them from the jade on
+  // disk. The first argument is where this middleware is mounted - and should
+  // match the path to the template files used from the browser.
+  // By default it looks in the app.set('views') directory for the templates.
   app.use( '/js/templates/', jadeAmdMiddleware({}) );
 
   app.use(express.static(__dirname + '/public'));
