@@ -9,9 +9,14 @@ block content
   h2 Sample Jade
   pre #{ sampleJade }
   
-  h2 Jade as HTML
+  h2 Jade as HTML (done on server)
   pre #{ sampleHTML }
-      
+  
+  //- the js that fills this in is in public/js/main.js
+  h2 Jade as HTML (rendered in client)
+  pre#rendered_in_client
+    | ERROR - this should be replaced by the rendered content
+            
   h2 Compiled Jade client function
   pre #{ sampleFunction }
   
