@@ -15,6 +15,7 @@ app.configure(function(){
   app.use(express.methodOverride());
 
   app.use(express.static(__dirname + '/public'));
+  app.use(express.favicon());
 
   app.use(app.router);
 
