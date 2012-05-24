@@ -19,9 +19,10 @@ var fs      = require('fs'),
 program
   .version(jadeAmd.version)
   .usage('[options] [dir|file ...]')
-  .option("-R, --runtime", "output the jade AMD'd runtime.js to stdout and exit")
-  .option('-O, --out <dir>', 'output the compiled js to <dir>')
-  .option('-P, --pretty',    'compile pretty html output');
+  .option('-R, --runtime',    'output the jade AMD"d runtime.js to stdout and exit')
+  .option('-f, --from <dir>', 'dir to look for jade templates in')
+  .option('-t, --to <dir>',   'output the compiled js to <dir>')
+  .option('-P, --pretty',     'compile pretty html output');
 
 program.parse(process.argv);
 
@@ -33,6 +34,7 @@ if (program.runtime) {
 }
 
 
+
 // jade options
 var options = {
   client:       true,
@@ -41,55 +43,47 @@ var options = {
 };
 
 
-// left-over args are file paths
-var files = program.args;
-
-// compile files
-if (files.length) {
-  console.log();
-  files.forEach(renderFile);
-  process.on('exit', console.log);
-} else {
-  console.log('Need to provide files or dir to convert')
+// check that we have both from and to
+if (!program.fram && !program.to) {
+  console.log("Both '--from' and '--to' are required");
+  process.exit(1);
 }
 
 
-/**
- * Process the given path, compiling the jade files found.
- * Always walk the subdirectories.
- */
+// print out some blank lines around the output
+console.log();
+process.on('exit', console.log);
 
-function renderFile(filePath) {
-  var re = /\.jade$/;
-  fs.lstat(filePath, function(err, stat) {
+var finder = require('findit').find(program.from);
+
+finder.on('file', function (file) {
+  var suffixRe = /\.jade$/;
+  if ( suffixRe.test(file) ) { 
+    // console.log('raw path: ' + file);
+    var local_path = file.replace( new RegExp('^' + program.from + '/+'), '');
+    // console.log('local_path: ' + local_path);
+
+    var fromPath = path.join( program.from, local_path);
+    var toPath   = path.join( program.to, local_path).replace(suffixRe, '.js');
+
+    renderFile( fromPath, toPath );
+  }
+});
+
+
+function renderFile(fromPath, toPath) {
+  fs.readFile(fromPath, 'utf8', function(err, str){
     if (err) throw err;
-
-    // Found jade file
-    if (stat.isFile() && re.test(filePath)) {
-      fs.readFile(filePath, 'utf8', function(err, str){
+    options.filename = fromPath;
+    var fn = jade.compile(str, options);
+    var dir = path.resolve(path.dirname(toPath));
+    mkdirp(dir, 0755, function(err){
+      if (err) throw err;
+      var amdOutput = jadeAmd.toAmdString(fn);
+      fs.writeFile(toPath, amdOutput, function(err){
         if (err) throw err;
-        options.filename = filePath;
-        var fn = jade.compile(str, options);
-        filePath = filePath.replace(re, '.js');
-        if (program.out) filePath = path.join(program.out, path.basename(filePath));
-        var dir = path.resolve(path.dirname(filePath));
-        mkdirp(dir, 0755, function(err){
-          if (err) throw err;
-          var amdOutput = jadeAmd.toAmdString(fn);
-          fs.writeFile(filePath, amdOutput, function(err){
-            if (err) throw err;
-            console.log('  \033[90mjade -> AMD js: \033[36m%s\033[0m', filePath);
-          });
-        });
+        console.log('  \033[90mjade -> AMD js: \033[36m%s\033[0m', toPath);
       });
-    // Found directory
-    } else if (stat.isDirectory()) {
-      fs.readdir(filePath, function(err, files) {
-        if (err) throw err;
-        files.map(function(filename) {
-          return filePath + '/' + filename;
-        }).forEach(renderFile);
-      });
-    }
+    });
   });
 }

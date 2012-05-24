@@ -47,7 +47,7 @@ Jade ships with a `runtime.js` that lets you run precompiled templates on the cl
 Goes through all the `.jade` files and compiles them to JavaScript, and then wraps them for AMD loaders. See the `README.md` and `Makefile` in the `example` folder for more details on how to integrate into your project.
 
     # compile and wrap you templates
-    jade-amd --out public/js/templates views/
+    jade-amd --from views/ --to public/js/templates
 
 
 ### Using the Jade templates on the browser.

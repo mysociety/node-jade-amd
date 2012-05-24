@@ -9,7 +9,7 @@ runtime:
 
 jade2amd:
 	rm -rf public/js/templates
-	../bin/jade-amd --out public/js/templates/ views/
+	../bin/jade-amd --from views/ --to public/js/templates/
 
 
 minify: runtime jade2amd
