@@ -1,6 +1,6 @@
 {
   "name": "jade-amd",
-  "version": "0.0.1",
+  "version": "0.0.2",
   
   "description": "Helpers for working with Jade templates in an AMD setting",
   "keywords": ["jade", "amd", "requirejs", "express", "middleware", "connect", "client-side"],
