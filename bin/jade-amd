@@ -44,7 +44,7 @@ var options = {
 
 
 // check that we have both from and to
-if (!program.fram && !program.to) {
+if (!program.from && !program.to) {
   console.log("Both '--from' and '--to' are required");
   process.exit(1);
 }
