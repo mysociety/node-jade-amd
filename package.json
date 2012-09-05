@@ -1,39 +1,41 @@
 {
   "name": "jade-amd",
-  "version": "0.0.3",
-  
+  "version": "0.0.4",
   "description": "Helpers for working with Jade templates in an AMD setting",
-  "keywords": ["jade", "amd", "requirejs", "express", "middleware", "connect", "client-side"],
-
+  "keywords": [
+    "jade",
+    "amd",
+    "requirejs",
+    "express",
+    "middleware",
+    "connect",
+    "client-side"
+  ],
   "homepage": "https://github.com/mysociety/node-jade-amd",
   "bugs": {
-    "url" : "http://github.com/mysociety/node-jade-amd/issues"
+    "url": "http://github.com/mysociety/node-jade-amd/issues"
   },
-
   "contributors": [
     "Edmund von der Burg <evdb@mysociety.org> (http://www.mysociety.org/)"
   ],
-  
-  "main": "jade-amd",  
-  "bin": { "jade-amd": "./bin/jade-amd" },
-  
+  "main": "jade-amd",
+  "bin": {
+    "jade-amd": "./bin/jade-amd"
+  },
   "repository": {
     "type": "git",
     "url": "http://github.com/mysociety/node-jade-amd.git"
   },
-
   "dependencies": {
-    "commander":   ">= 0.6.0",
-    "mkdirp":      ">= 0.3.2",
-    "findit":      ">= 0.1.2"
+    "commander": ">= 0.6.0",
+    "mkdirp": ">= 0.3.2",
+    "findit": ">= 0.1.2"
   },
-
   "devDependencies": {
-     "express":                   ">=2 <3",
-     "jade":                      ">= 0.25.0",
-     "requirejs":                 ">= 1.0.8"
+    "express": ">=2 <3",
+    "jade": ">= 0.25.0",
+    "requirejs": ">= 1.0.8"
   },
-
   "engines": {
     "node": "*"
   }
