@@ -2,6 +2,9 @@
 
 head
   title jade-amd example app
+
+  script
+    var require = { urlArgs: 'cacheBuster' };  
   script(src='/js/require.js', data-main="/js/main", type='text/javascript', charset='utf-8')
   
   
