@@ -20,12 +20,12 @@ program
   .version(jadeAmd.version)
   .usage('[options] [dir|file ...]')
   .option('-R, --runtime',    'output the jade AMD"d runtime.js to stdout and exit')
+  .option('-J, --jade-runtime <runtime>', 'The jade runtime to load. Defaults to "jadeRuntime"')
   .option('-f, --from <dir>', 'dir to look for jade templates in')
   .option('-t, --to <dir>',   'output the compiled js to <dir>')
   .option('-P, --pretty',     'compile pretty html output');
 
 program.parse(process.argv);
-
 
 // If we just want the runtime output it and then exit
 if (program.runtime) {
@@ -33,13 +33,12 @@ if (program.runtime) {
   process.exit();
 }
 
-
-
 // jade options
 var options = {
   client:       true,
   compileDebug: false,
   pretty:       program.pretty,
+  jadeRuntime:  program.jadeRuntime
 };
 
 
@@ -48,7 +47,6 @@ if (!program.fram && !program.to) {
   console.log("Both '--from' and '--to' are required");
   process.exit(1);
 }
-
 
 // print out some blank lines around the output
 console.log();
@@ -79,7 +77,7 @@ function renderFile(fromPath, toPath) {
     var dir = path.resolve(path.dirname(toPath));
     mkdirp(dir, 0755, function(err){
       if (err) throw err;
-      var amdOutput = jadeAmd.toAmdString(fn);
+      var amdOutput = jadeAmd.toAmdString(fn, options);
       fs.writeFile(toPath, amdOutput, function(err){
         if (err) throw err;
         console.log('  \033[90mjade -> AMD js: \033[36m%s\033[0m', toPath);
