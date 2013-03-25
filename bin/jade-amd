@@ -1,46 +1,43 @@
 #!/usr/bin/env node
 
-
 // This pretty much a copy of the `jade` script
-
 
 /**
  * Module dependencies.
  */
 
-var fs      = require('fs'),
-    program = require('commander'),
-    jade    = require('jade'),
-    jadeAmd = require('../'),
-    program = require('commander'),
-    path = require('path'),
-    mkdirp = require('mkdirp');
+var fs = require('fs'),
+  program = require('commander'),
+  jade = require('jade'),
+  jadeAmd = require('../'),
+  program = require('commander'),
+  path = require('path'),
+  mkdirp = require('mkdirp');
 
 program
   .version(jadeAmd.version)
   .usage('[options] [dir|file ...]')
-  .option('-R, --runtime',    'output the jade AMD"d runtime.js to stdout and exit')
+  .option('-R, --runtime', 'output the jade AMD"d runtime.js to stdout and exit')
   .option('-J, --jade-runtime <runtime>', 'The jade runtime to load. Defaults to "jadeRuntime"')
   .option('-f, --from <dir>', 'dir to look for jade templates in')
-  .option('-t, --to <dir>',   'output the compiled js to <dir>')
-  .option('-P, --pretty',     'compile pretty html output');
+  .option('-t, --to <dir>', 'output the compiled js to <dir>')
+  .option('-P, --pretty', 'compile pretty html output');
 
 program.parse(process.argv);
 
 // If we just want the runtime output it and then exit
 if (program.runtime) {
-  process.stdout.write( jadeAmd.jadeRuntimeAmdString );
+  process.stdout.write(jadeAmd.jadeRuntimeAmdString);
   process.exit();
 }
 
 // jade options
 var options = {
-  client:       true,
+  client: true,
   compileDebug: false,
-  pretty:       program.pretty,
-  jadeRuntime:  program.jadeRuntime
+  pretty: program.pretty,
+  jadeRuntime: program.jadeRuntime
 };
-
 
 // check that we have both from and to
 if (!program.from && !program.to) {
@@ -56,30 +53,38 @@ var finder = require('findit').find(program.from);
 
 finder.on('file', function (file) {
   var suffixRe = /\.jade$/;
-  if ( suffixRe.test(file) ) {
-    // console.log('raw path: ' + file);
-    var local_path = file.replace( new RegExp('^' + program.from + '/+'), '');
-    // console.log('local_path: ' + local_path);
 
-    var fromPath = path.join( program.from, local_path);
-    var toPath   = path.join( program.to, local_path).replace(suffixRe, '.js');
+  if (suffixRe.test(file)) {
+    var local_path = file.replace(new RegExp('^' + program.from + '/+'), '');
+    var fromPath = path.join(program.from, local_path);
+    var toPath = path.join(program.to, local_path).replace(suffixRe, '.js');
 
-    renderFile( fromPath, toPath );
+    renderFile(fromPath, toPath);
   }
 });
 
-
 function renderFile(fromPath, toPath) {
-  fs.readFile(fromPath, 'utf8', function(err, str){
-    if (err) throw err;
+  fs.readFile(fromPath, 'utf8', function (err, str) {
+    if (err) {
+      throw err;
+    }
+
     options.filename = fromPath;
     var fn = jade.compile(str, options);
     var dir = path.resolve(path.dirname(toPath));
-    mkdirp(dir, 0755, function(err){
-      if (err) throw err;
+
+    mkdirp(dir, 0755, function (err) {
+      if (err) {
+        throw err;
+      }
+
       var amdOutput = jadeAmd.toAmdString(fn, options);
-      fs.writeFile(toPath, amdOutput, function(err){
-        if (err) throw err;
+
+      fs.writeFile(toPath, amdOutput, function (err) {
+        if (err) {
+          throw err;
+        }
+
         console.log('  \033[90mjade -> AMD js: \033[36m%s\033[0m', toPath);
       });
     });
