@@ -43,7 +43,7 @@ var options = {
 
 
 // check that we have both from and to
-if (!program.fram && !program.to) {
+if (!program.from && !program.to) {
   console.log("Both '--from' and '--to' are required");
   process.exit(1);
 }
@@ -56,7 +56,7 @@ var finder = require('findit').find(program.from);
 
 finder.on('file', function (file) {
   var suffixRe = /\.jade$/;
-  if ( suffixRe.test(file) ) { 
+  if ( suffixRe.test(file) ) {
     // console.log('raw path: ' + file);
     var local_path = file.replace( new RegExp('^' + program.from + '/+'), '');
     // console.log('local_path: ' + local_path);
