@@ -1,1 +1,8 @@
+# Node modules
 node_modules
+
+# Hidden files
+/.*
+
+# Project files
+/*.iml
