@@ -16,7 +16,8 @@
     "url": "http://github.com/mysociety/node-jade-amd/issues"
   },
   "contributors": [
-    "Edmund von der Burg <evdb@mysociety.org> (http://www.mysociety.org/)"
+    "Edmund von der Burg <evdb@mysociety.org> (http://www.mysociety.org/)",
+    "Marten Lienen <marten.lienen@gmail.com> (http://cqql.de)"
   ],
   "main": "jade-amd",
   "bin": {
