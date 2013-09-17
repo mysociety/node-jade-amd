@@ -49,13 +49,13 @@ if (!program.from && !program.to) {
 console.log();
 process.on('exit', console.log);
 
-var finder = require('findit').find(program.from);
+var finder = require('findit')(program.from);
 
 finder.on('file', function (file) {
   var suffixRe = /\.jade$/;
 
   if (suffixRe.test(file)) {
-    var local_path = file.replace(new RegExp('^' + program.from + '/+'), '');
+    var local_path = file.replace(new RegExp('^' + program.from + '/?'), '');
     var fromPath = path.join(program.from, local_path);
     var toPath = path.join(program.to, local_path).replace(suffixRe, '.js');
 
