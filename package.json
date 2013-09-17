@@ -1,6 +1,6 @@
 {
   "name": "jade-amd",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Helpers for working with Jade templates in an AMD setting",
   "keywords": [
     "jade",
