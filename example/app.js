@@ -3,6 +3,7 @@ var express = require('express'),
   fs = require('fs'),
   toAmdString = require('../lib/jade-amd').toAmdString,
   jadeRuntimeAmdString = require('../lib/jade-amd').jadeRuntimeAmdString,
+  jadeVersion = require('../lib/jade-amd').jadeVersion,
   jadeAmdMiddleware = require('../lib/jade-amd').jadeAmdMiddleware;
 
 var app = module.exports = express.createServer();
@@ -62,6 +63,7 @@ app.get('/', function (req, res) {
         sampleFunction: sampleFunction.toString(),
         sampleAMD: toAmdString(sampleFunction),
         jadeRuntimeAmdString: jadeRuntimeAmdString,
+        jadeVersion         : jadeVersion,
       });
 
       res.render('index');
