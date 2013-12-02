@@ -30,7 +30,8 @@
   "dependencies": {
     "commander": ">= 0.6.0",
     "mkdirp": ">= 0.3.2",
-    "findit": ">= 0.1.2"
+    "findit": ">= 0.1.2",
+    "semver": "~2.2.1"
   },
   "devDependencies": {
     "express": ">=2 <3",

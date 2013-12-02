@@ -36,7 +36,7 @@ The middleware is there for when you are developing. It intercepts requests for 
 
 ### Jade Runtime
 
-Jade ships with a `runtime.js` that lets you run precompiled templates on the client with out requiring the whole of the Jade templating system. This script needs to be wrapped to work with AMD loaders such as RequireJS:
+Jade ships with a `runtime.js` that lets you run precompiled templates on the client with out requiring the whole of the Jade templating system. Before Jade `v0.31.0` this script needs to be wrapped to work with AMD loaders such as RequireJS. The following command wraps the runtime if needed, otherwise just passes it through unchanged.
 
     # wrap Jade's runtime.js in AMD semantics
     jade-amd --runtime > public/js/jadeRuntime.js
