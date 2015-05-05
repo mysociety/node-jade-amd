@@ -33,7 +33,6 @@ if (program.runtime) {
 
 // jade options
 var options = {
-  client: true,
   compileDebug: false,
   pretty: program.pretty,
   jadeRuntime: program.jadeRuntime
@@ -70,7 +69,7 @@ function renderFile(fromPath, toPath) {
     }
 
     options.filename = fromPath;
-    var fn = jade.compile(str, options);
+    var fn = jade.compileClient(str, options);
     var dir = path.resolve(path.dirname(toPath));
 
     mkdirp(dir, 0755, function (err) {
