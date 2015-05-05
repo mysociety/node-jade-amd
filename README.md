@@ -64,5 +64,4 @@ And you can use exactly the same template on the server side!
 ## Inspiration
 
  * https://github.com/visionmedia/jade/issues/634
- * https://github.com/pgherveou/squid/blob/master/src/lib/JadeBuilder.coffee
 
