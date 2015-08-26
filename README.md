@@ -31,7 +31,10 @@ These are the interesting bits:
 The middleware is there for when you are developing. It intercepts requests for template js and compiles and serves the templates directly. This means that you don't need to make any changes to the browser-side code.
 
     var jadeAmd = require('jade-amd');
-    app.use( '/js/templates/', jadeAmd.jadeAmdMiddleware({}) );
+    app.use( '/js/templates/', jadeAmd.jadeAmdMiddleware({
+      jadeRuntime: 'jade', // The jade runtime to load. Defaults to "jadeRuntime"
+      views: './views/templates' // Path to folder with .jade templates
+    }) );
 
 
 ### Jade Runtime
