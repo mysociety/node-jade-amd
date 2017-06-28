@@ -54,7 +54,7 @@ finder.on('file', function (file) {
   var suffixRe = /\.jade$/;
 
   if (suffixRe.test(file)) {
-    var local_path = file.replace(new RegExp('^' + program.from + '/?'), '');
+    var local_path = path.relative(program.from, file);
     var fromPath = path.join(program.from, local_path);
     var toPath = path.join(program.to, local_path).replace(suffixRe, '.js');
 
